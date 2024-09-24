@@ -1,7 +1,7 @@
-// Register.js
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -18,14 +18,16 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/add_user?username=${username}&password=${password}`);
+       const response = await axios.post(`http://192.168.137.27:1234/add_user?username=${username}&password=${password}`);
+      //const response = await axios.post(`http://192.168.137.27:1234/add_user?username=${username}&password=${password}`);
+
+   
 
       if (response.status === 200) {
         // Reset fields after successful submission
         setUsername('');
         setPassword('');
-        // Alert user upon successful registration
-        alert('User registered successfully!');
+        window.location.href = './Spike_measurements'; // Redirect to line graph
       }
     } catch (error) {
       // Handle errors, show error message or take appropriate action
@@ -69,6 +71,7 @@ const Register = () => {
           >
             Register
           </button>
+          <Link to="/">Already have an account? Login here</Link>
         </div>
       </form>
     </div>

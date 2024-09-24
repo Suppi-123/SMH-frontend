@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
@@ -16,15 +17,16 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/check_user?username=${username}&password=${password}`);
+      const response = await axios.get(`http://192.168.137.27:1234/check_user?username=${username}&password=${password}`);
+      //const response = await axios.get(`http://192.168.137.27:1234/check_user?username=${username}&password=${password}`);
+      
       console.log(response);
 
       if (response.data.exists) {
         // Reset fields after successful submission
         setUsername('');
         setPassword('');
-        // Alert user upon successful submission
-        alert('Hello user!');
+        window.location.href = '/Spike_measurements'; // Redirect to line graph
       } else {
         alert('Please try again');
       }
@@ -70,6 +72,12 @@ const Login = () => {
           >
             Sign In
           </button>
+          <p>
+            Don't have an account?{' '}
+            <Link to="/register" className="text-blue-500 hover:underline">
+              Register
+            </Link>
+          </p>
         </div>
       </form>
     </div>
